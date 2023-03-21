@@ -1,10 +1,9 @@
 const { createHash } = require("crypto");
 
 const deterministicPartitionKey = (event) => {
-  let candidate;
-
   // Check for empty event and simply return TRIVIAL_PARTITION_KEY if empty
   if (event) {
+    let candidate;
     // Check for partitionKey
     if (event.partitionKey) {
       candidate = handlePartitionKey(event.partitionKey);
@@ -22,7 +21,8 @@ const deterministicPartitionKey = (event) => {
 };
 
 // Extract PartitionKey Logic to seperate function
-function handlePartitionKey(candidate) {
+function handlePartitionKey(partitionKey) {
+  let candidate = partitionKey;
   const MAX_PARTITION_KEY_LENGTH = 256;
 
   // Canidate is always going to be non string for events without partitionKey
